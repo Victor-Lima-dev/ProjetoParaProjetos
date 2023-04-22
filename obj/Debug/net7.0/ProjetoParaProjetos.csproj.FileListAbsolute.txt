@@ -63,3 +63,8 @@ C:\Users\vlima06\OneDrive - JACTO\Área de Trabalho\code\ProjetoParaProjetos\obj
 C:\Users\vlima06\OneDrive - JACTO\Área de Trabalho\code\ProjetoParaProjetos\obj\Debug\net7.0\ProjetoParaProjetos.pdb
 C:\Users\vlima06\OneDrive - JACTO\Área de Trabalho\code\ProjetoParaProjetos\obj\Debug\net7.0\ProjetoParaProjetos.genruntimeconfig.cache
 C:\Users\vlima06\OneDrive - JACTO\Área de Trabalho\code\ProjetoParaProjetos\obj\Debug\net7.0\ref\ProjetoParaProjetos.dll
+C:\Users\vlima06\OneDrive - JACTO\Área de Trabalho\code\ProjetoParaProjetos\bin\Debug\net7.0\out\web.config
+C:\Users\vlima06\OneDrive - JACTO\Área de Trabalho\code\ProjetoParaProjetos\bin\Debug\net7.0\out\appsettings.Development.json
+C:\Users\vlima06\OneDrive - JACTO\Área de Trabalho\code\ProjetoParaProjetos\bin\Debug\net7.0\out\appsettings.json
+C:\Users\vlima06\OneDrive - JACTO\Área de Trabalho\code\ProjetoParaProjetos\bin\Debug\net7.0\out\ProjetoParaProjetos.deps.json
+C:\Users\vlima06\OneDrive - JACTO\Área de Trabalho\code\ProjetoParaProjetos\bin\Debug\net7.0\out\ProjetoParaProjetos.runtimeconfig.json

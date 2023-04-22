@@ -18645,6 +18645,16 @@
   "RootNamespace": "ProjetoParaProjetos",
   "Documents": [
     {
+      "FilePath": "c:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\code\\ProjetoParaProjetos\\Views\\Tarefas\\Details.cshtml",
+      "TargetPath": "Views\\Tarefas\\Details.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\code\\ProjetoParaProjetos\\Views\\Tarefas\\Delete.cshtml",
+      "TargetPath": "Views\\Tarefas\\Delete.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\code\\ProjetoParaProjetos\\Views\\Shared\\_Layout.cshtml",
       "TargetPath": "Views\\Shared\\_Layout.cshtml",
       "FileKind": "mvc"
@@ -18652,6 +18662,11 @@
     {
       "FilePath": "c:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\code\\ProjetoParaProjetos\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
       "TargetPath": "Views\\Shared\\_ValidationScriptsPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\code\\ProjetoParaProjetos\\Views\\Shared\\_ExibirTarefa.cshtml",
+      "TargetPath": "Views\\Shared\\_ExibirTarefa.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -18670,13 +18685,28 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\code\\ProjetoParaProjetos\\Views\\Tarefas\\Index.cshtml",
+      "TargetPath": "Views\\Tarefas\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\code\\ProjetoParaProjetos\\Views\\_ViewStart.cshtml",
       "TargetPath": "Views\\_ViewStart.cshtml",
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\code\\ProjetoParaProjetos\\Views\\Tarefas\\Edit.cshtml",
+      "TargetPath": "Views\\Tarefas\\Edit.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\code\\ProjetoParaProjetos\\Views\\Shared\\Error.cshtml",
       "TargetPath": "Views\\Shared\\Error.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\code\\ProjetoParaProjetos\\Views\\Tarefas\\Create.cshtml",
+      "TargetPath": "Views\\Tarefas\\Create.cshtml",
       "FileKind": "mvc"
     }
   ],

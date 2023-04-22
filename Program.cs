@@ -1,10 +1,15 @@
 using Microsoft.EntityFrameworkCore;
 using ProjetoParaProjetos.context;
+using ProjetoParaProjetos.Interfaces;
+using ProjetoParaProjetos.Repositorios;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+//registrar BancoDadosRepositorio e IBancoDados
+builder.Services.AddScoped<IBancoDados, BancoDadosRepositorio>();
+
 
 string mySqlConnectionStr = builder.Configuration.GetConnectionString("DefaultConnection");
 
