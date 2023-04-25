@@ -8,14 +8,14 @@ namespace ProjetoParaProjetos.Interfaces
 {
     public interface IBancoDados
     {
-        public IEnumerable<Tarefa> Tarefas { get;}
+        public IEnumerable<Projeto> Projetos { get;}
 
 
-        public List<Tarefa> GetTarefas();
-        public Tarefa GetTarefa(int id);
-        public void AddTarefa(Tarefa tarefa);
-        public void UpdateTarefa(Tarefa tarefa);
-        public void DeleteTarefa(Tarefa tarefa);
+        public List<Projeto> GetTarefas();
+        public Projeto GetTarefa(int id);
+        public void AddTarefa(Projeto projeto);
+        public void UpdateTarefa(Projeto projeto);
+        public void DeleteTarefa(Projeto projeto);
         
     }
 }

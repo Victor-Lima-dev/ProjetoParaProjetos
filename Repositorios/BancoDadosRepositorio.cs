@@ -18,38 +18,38 @@ namespace ProjetoParaProjetos.Repositorios
             _appDbContext = appDbContext;
         }
 
-        public IEnumerable<Tarefa> Tarefas => _appDbContext.Tarefas;
+        public IEnumerable<Projeto> Projetos => _appDbContext.Projetos;
 
-        public List<Tarefa> GetTarefas()
+        public List<Projeto> GetTarefas()
         {
-            return _appDbContext.Tarefas.ToList();
+            return _appDbContext.Projetos.ToList();
         }
 
-        public Tarefa GetTarefa(int id)
+        public Projeto GetTarefa(int id)
         {
-            return _appDbContext.Tarefas.FirstOrDefault(t => t.TarefaId == id);
+            return _appDbContext.Projetos.FirstOrDefault(t => t.ProjetoId == id);
         }
 
-        public void AddTarefa(Tarefa tarefa)
+        public void AddTarefa(Projeto projeto)
         {
-            _appDbContext.Tarefas.Add(tarefa);
+            _appDbContext.Projetos.Add(projeto);
             _appDbContext.SaveChanges();
         }
 
-        public void UpdateTarefa(Tarefa tarefa)
+        public void UpdateTarefa(Projeto projeto)
         {
             
 
-            var tarefaEdit = tarefa;
+            var projetoEdit = projeto;
 
 
-            _appDbContext.Tarefas.Update(tarefaEdit);
+            _appDbContext.Projetos.Update(projetoEdit);
             _appDbContext.SaveChanges();
         }
 
-        public void DeleteTarefa(Tarefa tarefa)
+        public void DeleteTarefa(Projeto projeto)
         {
-            _appDbContext.Tarefas.Remove(tarefa);
+            _appDbContext.Projetos.Remove(projeto);
             _appDbContext.SaveChanges();
         }
 

@@ -1,0 +1,48 @@
+@model Projeto
+
+<h2>Criar Projeto</h2>
+
+<form method="post" action="@Url.Action("Criar", "Projetos")">
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <label class="control-label col-md-2" for="Nome">Nome</label>
+        <div class="col-md-10">
+            <input class="form-control" id="Nome" name="Nome" type="text" value="@Model.Nome" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2" for="Descricao">Descrição</label>
+        <div class="col-md-10">
+            <textarea class="form-control" id="Descricao" name="Descricao">@Model.Descricao</textarea>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2" for="Status">Status</label>
+        <div class="col-md-10">
+            <input class="form-control" id="Status" name="Status" type="text" value="@Model.Status" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2" for="Objetivo">Objetivo</label>
+        <div class="col-md-10">
+            <textarea class="form-control" id="Objetivo" name="Objetivo">@Model.Objetivo</textarea>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2" for="Selos">Selos</label>
+        <div class="col-md-10">
+            <input class="form-control" id="Selos" name="Selos" type="text" value="@Model.Selos" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-primary">Salvar</button>
+        </div>
+    </div>
+</form>

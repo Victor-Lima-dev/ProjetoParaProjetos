@@ -13,7 +13,7 @@ namespace ProjetoParaProjetos.context
         {
         }
 
-        public DbSet<ProjetoParaProjetos.Models.Tarefa> Tarefas { get; set; }
+        public DbSet<ProjetoParaProjetos.Models.Projeto> Projetos { get; set; }
         
     }
 }
