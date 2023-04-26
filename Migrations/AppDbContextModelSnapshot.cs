@@ -19,6 +19,33 @@ namespace ProjetoParaProjetos.Migrations
                 .HasAnnotation("ProductVersion", "7.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
+            modelBuilder.Entity("ProjetoParaProjetos.Models.Objetivos", b =>
+                {
+                    b.Property<int>("ObjetivosId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Objetivo")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Tipo")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("ObjetivosId");
+
+                    b.ToTable("Objetivos");
+                });
+
             modelBuilder.Entity("ProjetoParaProjetos.Models.Projeto", b =>
                 {
                     b.Property<int>("ProjetoId")
@@ -57,6 +84,25 @@ namespace ProjetoParaProjetos.Migrations
                     b.HasKey("ProjetoId");
 
                     b.ToTable("Projetos");
+                });
+
+            modelBuilder.Entity("ProjetoParaProjetos.Models.SeloAprendizado", b =>
+                {
+                    b.Property<int>("SeloAprendizadoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("SeloAprendizadoId");
+
+                    b.ToTable("SelosAprendizado");
                 });
 #pragma warning restore 612, 618
         }
