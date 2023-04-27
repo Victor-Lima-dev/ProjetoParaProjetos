@@ -5,13 +5,12 @@ using System.Threading.Tasks;
 
 namespace ProjetoParaProjetos.Models
 {
-    public class Objetivos
+    public class Nota
     {
-        public int ObjetivosId { get; set; }
-        public string Objetivo { get; set; }
+        public int NotaId { get; set; }
+        public string Titulo { get; set; }
         public string Descricao { get; set; }
-        public string Tipo { get; set; }
-        public string Status { get; set; }
+        public DateTime DataCriacao { get; set; }
         
     }
 }

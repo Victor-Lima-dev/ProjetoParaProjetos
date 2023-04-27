@@ -17,6 +17,12 @@ namespace ProjetoParaProjetos.context
         public DbSet<ProjetoParaProjetos.Models.SeloAprendizado> SelosAprendizado { get; set; }
 
         public DbSet<ProjetoParaProjetos.Models.Objetivos> Objetivos { get; set; }
+
+        public DbSet<ProjetoParaProjetos.Models.Tarefa> Tarefas { get; set; }
+
+        public DbSet<ProjetoParaProjetos.Models.Nota> Notas { get; set; }
+
+        
         
     }
 }

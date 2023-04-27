@@ -1,0 +1,21 @@
+@model List<Projeto>
+
+<h1>Home</h1>
+
+<a asp-controller="Projetoes" asp-action="Create">Criar Projeto</a>
+<a asp-controller="Projetoes" asp-action="Index">Projetos</a>
+
+@{
+    var projeto = Model.LastOrDefault();
+}
+@if (projeto != null)
+{
+    <p>@projeto.Nome</p>
+    <p>@projeto.DataInicio</p>
+
+}
+
+else
+{
+    <p>Não há projetos cadastrados</p>
+}
