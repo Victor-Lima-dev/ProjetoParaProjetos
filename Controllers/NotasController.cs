@@ -58,13 +58,12 @@ namespace ProjetoParaProjetos.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("NotaId,Titulo,Descricao,DataCriacao")] Nota nota)
         {
-            if (ModelState.IsValid)
-            {
+           
                 _context.Add(nota);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
-            return View(nota);
+            
+           
         }
 
         // GET: Notas/Edit/5
