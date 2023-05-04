@@ -17,6 +17,12 @@ namespace ProjetoParaProjetos.Models
 
         public int? ObjetivosId { get; set; }
         public Objetivos Objetivos { get; set; }
+
+        public string Categoria { get; set; }
+
+        public Boolean Revisao { get; set; }
+
+        public DateTime DataRevisao { get; set; }
         
     }
 }

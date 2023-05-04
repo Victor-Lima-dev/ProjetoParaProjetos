@@ -51,4 +51,8 @@
         <input type="hidden" name="id" value="@Model?.ProjetoId" />
         <input type="submit" value="Finalizar" />
     </form>
+    <form asp-action="Pausar" method="post">
+        <input type="hidden" name="id" value="@Model?.ProjetoId" />
+        <input type="submit" value="Pausar" />
+    </form>
 </div>

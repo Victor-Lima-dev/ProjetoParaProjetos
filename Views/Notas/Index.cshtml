@@ -2,9 +2,25 @@
 
 @{
     ViewData["Title"] = "Index";
+     var categorias = new List<string> { "Front-End", "Trabalho", "Back-End","Data-Science", "Vestibular", "FullStack",
+"Computação", "Outros" };
+
 }
 
 <h1>Index</h1>
+<form asp-action="ProcurarPorCategoria">
+    <label for="categoria">Procurar por Categoria</label>
+    
+    <select name="categoria" id="categoria">
+        @foreach (var item in categorias)
+        {
+            <option name="categoria" value="@item">@item</option>
+        }
+    </select>
+<button type="submit">Procurar</button>
+
+
+</form>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -21,6 +37,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.DataCriacao)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Categoria)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -35,6 +54,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DataCriacao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Categoria)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.NotaId">Edit</a> |

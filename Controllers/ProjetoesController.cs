@@ -221,6 +221,38 @@ namespace ProjetoParaProjetos.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        //POST: pausar projeto
+        [HttpPost]
+        public async Task<IActionResult> Pausar(int id)
+        {
+            if (_context.Projetos == null)
+            {
+                return Problem("Entity set 'AppDbContext.Projetos'  is null.");
+            }
+            var projeto = await _context.Projetos.FindAsync(id);
+
+
+            if (projeto.Status == "Pausado")
+            {
+                projeto.Status = "Ativo";
+                _context.Projetos.Update(projeto);
+
+            }
+
+            else
+            {
+            projeto.Status = "Pausado";
+            _context.Projetos.Update(projeto);
+            }
+
+
+
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+
         //procurar por status
         [HttpPost]
         public async Task<IActionResult> Procurar(string status)
@@ -229,7 +261,7 @@ namespace ProjetoParaProjetos.Controllers
             {
                 var objetivos = _context.Objetivos.ToList();
                 ViewData["Objetivos"] = objetivos;
-                
+
                 return RedirectToAction(nameof(Index));
             }
 
@@ -242,6 +274,19 @@ namespace ProjetoParaProjetos.Controllers
             return View("Index", projetos);
         }
 
+        //procurar por categoria
+        [HttpPost]
+        public async Task<IActionResult> ProcurarCategoria(string categoria)
+        {
+            var projetos = await _context.Projetos.Where(p => p.Categoria == categoria).ToListAsync();
 
+            var objetivos = _context.Objetivos.ToList();
+            ViewData["Objetivos"] = objetivos;
+
+            return View("Index", projetos);
+
+
+
+        }
     }
 }

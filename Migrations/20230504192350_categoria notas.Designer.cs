@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjetoParaProjetos.context;
 
@@ -10,9 +11,11 @@ using ProjetoParaProjetos.context;
 namespace ProjetoParaProjetos.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230504192350_categoria notas")]
+    partial class categorianotas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,9 +35,6 @@ namespace ProjetoParaProjetos.Migrations
                     b.Property<DateTime>("DataCriacao")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<DateTime>("DataRevisao")
-                        .HasColumnType("datetime(6)");
-
                     b.Property<string>("Descricao")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -44,9 +44,6 @@ namespace ProjetoParaProjetos.Migrations
 
                     b.Property<int?>("ProjetoId")
                         .HasColumnType("int");
-
-                    b.Property<bool>("Revisao")
-                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Titulo")
                         .IsRequired()

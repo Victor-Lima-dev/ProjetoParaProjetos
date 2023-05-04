@@ -5,7 +5,9 @@
     var diaAtual = DateTime.Today.Day;
     var data = DateTime.Now;
 
+    //verificar se a hora atual esta entra 10h e 17h
 
+    var horaConfere = data.Hour >= 10 && data.Hour < 17;
 
     // Filtrar as tarefas que foram criadas no dia atual
     var listaTarefas = Model.Tarefas.Where(t => t.DataCriacao.Day == diaAtual).ToList();
@@ -14,8 +16,14 @@
 
     var listaTarefasAbertas = listaTarefas.Where(t => t.Status == "Aberta").ToList();
 
+    //lista de tarefas trabalho
+    var listaTarefasTrabalhoAbertas = listaTarefasAbertas.Where(t => t.Categoria == "Trabalho").ToList();
+
+    //Outras tarefas
+    var listaTarefasOutrasAbertas = listaTarefasAbertas.Where(t => t.Categoria != "Trabalho").ToList();
+
     // filtrar as tarefas que foram fechadas no dia atual
-   var listaTarefasFinalizadas = Model.Tarefas.Where(t => t.DataFinal.Day == diaAtual).ToList();
+    var listaTarefasFinalizadas = Model.Tarefas.Where(t => t.DataFinal.Day == diaAtual).ToList();
 
     // filtrar os projetos ativos
     var listaProjetos = Model.Projetos.Where(p => p.Status == "Ativo").ToList();
@@ -45,14 +53,42 @@
         </section>
 
         <div class="d-flex justify-content-center align-items-center flex-wrap">
+            @if (horaConfere == true)
+            {
+
+
+                <div class="card" style="margin: 1rem;">
+                    <div class="card-body"
+                        style="text-align: center;width: 300px;max-width: 400px;height: auto;min-height:200px">
+                        <h4 class="card-title">Tarefas do Trabalho</h4>
+                        <h6 class="text-muted card-subtitle mb-2">Abertas Hoje</h6>
+                        <ul class="list-unstyled">
+
+                            @foreach (var item in listaTarefasTrabalhoAbertas)
+                            {
+                                <li class="card-text">@item.Nome</li>
+                            }
+
+                        </ul><a class="card-link" asp-controller="Tarefas" asp-action="Index">Ver todas</a>
+                    </div>
+                </div>
+
+
+            }
+
+
+
+
+
+
             <div class="card" style="margin: 1rem;">
                 <div class="card-body"
                     style="text-align: center;width: 300px;max-width: 400px;height: auto;min-height:200px">
-                    <h4 class="card-title">Tarefas</h4>
+                    <h4 class="card-title">Tarefas Pessoais</h4>
                     <h6 class="text-muted card-subtitle mb-2">Abertas Hoje</h6>
                     <ul class="list-unstyled">
 
-                        @foreach (var item in listaTarefasAbertas)
+                        @foreach (var item in listaTarefasOutrasAbertas)
                         {
                             <li class="card-text">@item.Nome</li>
                         }

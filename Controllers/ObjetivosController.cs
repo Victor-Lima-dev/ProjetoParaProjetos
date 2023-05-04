@@ -77,8 +77,8 @@ namespace ProjetoParaProjetos.Controllers
             {
                 return NotFound();
             }
-             List<string> listaTipos = new List<string> { "Programação", "Data Science", "Vestibular", "Cloud", "Academia", "Outros" };
-             List<string> listaStatus = new List<string> { "Ativo", "Inativo" };
+            List<string> listaTipos = new List<string> { "Programação", "Data Science", "Vestibular", "Cloud", "Academia", "Outros" };
+            List<string> listaStatus = new List<string> { "Ativo", "Inativo" };
             ViewData["Status"] = listaStatus;
             ViewData["Tipos"] = listaTipos;
 
@@ -160,6 +160,48 @@ namespace ProjetoParaProjetos.Controllers
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+
+        }
+
+        //procurar por tipo
+
+        public async Task<IActionResult> ProcurarPorTipo(string tipo)
+        {
+            if (tipo == null || _context.Objetivos == null)
+            {
+                return NotFound();
+            }
+
+            //lista de objetivos com aquele tipo
+            var objetivos = await _context.Objetivos
+                .Where(m => m.Tipo == tipo).ToListAsync();
+
+
+            if (objetivos == null)
+            {
+                return NotFound();
+            }
+
+            return View("index", objetivos);
+        }
+
+        //procurar por status
+
+        public async Task<IActionResult> ProcurarPorStatus(string status)
+        {
+            if (status == null || _context.Objetivos == null)
+            {
+                return NotFound();
+            }
+
+              var objetivos = await _context.Objetivos
+                .Where(m => m.Status == status).ToListAsync();
+            if (objetivos == null)
+            {
+                return NotFound();
+            }
+
+            return View("index", objetivos);
         }
 
         private bool ObjetivosExists(int id)

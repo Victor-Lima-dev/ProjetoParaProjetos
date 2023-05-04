@@ -22,6 +22,8 @@ namespace ProjetoParaProjetos.Controllers
         // GET: Tarefas
         public async Task<IActionResult> Index()
         {
+            var categorias = new List<string> { "Front-End", "Trabalho", "Back-End","Data-Science", "Vestibular", "FullStack", "Computação", "Outros" };
+            ViewData["Categorias"] = categorias;
             return _context.Tarefas != null ?
                         View(await _context.Tarefas.ToListAsync()) :
                         Problem("Entity set 'AppDbContext.Tarefas'  is null.");
@@ -41,7 +43,8 @@ namespace ProjetoParaProjetos.Controllers
             {
                 return NotFound();
             }
-
+var categorias = new List<string> { "Front-End", "Trabalho", "Back-End","Data-Science", "Vestibular", "FullStack", "Computação", "Outros" };
+            ViewData["Categorias"] = categorias;
             return View(tarefa);
         }
 
@@ -50,6 +53,9 @@ namespace ProjetoParaProjetos.Controllers
         {
             var prioridades = new List<string> { "Baixa", "Média", "Alta" };
             ViewData["Prioridades"] = prioridades;
+
+            var categorias = new List<string> { "Front-End", "Trabalho", "Back-End","Data-Science", "Vestibular", "FullStack", "Computação", "Outros" };
+            ViewData["Categorias"] = categorias;
             return View();
         }
 
@@ -92,6 +98,8 @@ namespace ProjetoParaProjetos.Controllers
             }
             var prioridades = new List<string> { "Baixa", "Média", "Alta" };
             ViewData["Prioridades"] = prioridades;
+            var categorias = new List<string> { "Front-End", "Trabalho", "Back-End","Data-Science", "Vestibular", "FullStack", "Computação", "Outros" };
+            ViewData["Categorias"] = categorias;
             return View(tarefa);
         }
 
@@ -108,6 +116,8 @@ namespace ProjetoParaProjetos.Controllers
             }
             var prioridades = new List<string> { "Baixa", "Média", "Alta" };
             ViewData["Prioridades"] = prioridades;
+            var categorias = new List<string> { "Front-End", "Trabalho", "Back-End","Data-Science", "Vestibular", "FullStack", "Computação", "Outros" };
+            ViewData["Categorias"] = categorias;
 
 
             if (ModelState.IsValid)
@@ -200,6 +210,28 @@ namespace ProjetoParaProjetos.Controllers
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        //procurar por categoria
+              public async Task<IActionResult> ProcurarCategoria(string categoria)
+        {
+            if (_context.Tarefas == null)
+            {
+                return Problem("Entity set 'AppDbContext.Tarefas'  is null.");
+            }
+            var tarefas = await _context.Tarefas.Where(t => t.Categoria == categoria).ToListAsync();
+            return View(nameof(Index), tarefas);
+        }
+
+        //procurar por prioridade
+        public async Task<IActionResult> ProcurarPrioridade(string prioridade)
+        {
+            if (_context.Tarefas == null)
+            {
+                return Problem("Entity set 'AppDbContext.Tarefas'  is null.");
+            }
+            var tarefas = await _context.Tarefas.Where(t => t.Prioridade == prioridade).ToListAsync();
+            return View(nameof(Index), tarefas);
         }
 
 

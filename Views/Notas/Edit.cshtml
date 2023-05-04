@@ -2,6 +2,8 @@
 
 @{
     ViewData["Title"] = "Edit";
+     var categorias = new List<string> { "Front-End", "Trabalho", "Back-End","Data-Science", "Vestibular", "FullStack", "Computação", "Outros" };
+
 }
 
 <h1>Edit</h1>
@@ -23,11 +25,21 @@
                 <input asp-for="Descricao" class="form-control" />
                 <span asp-validation-for="Descricao" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="DataCriacao" class="control-label"></label>
-                <input asp-for="DataCriacao" class="form-control" />
-                <span asp-validation-for="DataCriacao" class="text-danger"></span>
+                <label asp-for="Categoria" class="control-label"></label>
+              <select name="Categoria" id="Categoria">
+                @foreach (var categoria in categorias)
+                {
+                  <option  name ="Categoria" value="@categoria">@categoria</option>
+                }
+
+              </select>
+                <span asp-validation-for="Categoria" class="text-danger"></span>
             </div>
+
+          <input type="hidden" value="@Model.DataCriacao" name="DataCriacao">
+           
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

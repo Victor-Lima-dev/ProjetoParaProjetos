@@ -56,7 +56,7 @@ namespace ProjetoParaProjetos.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("NotaId,Titulo,Descricao,DataCriacao")] Nota nota)
+        public async Task<IActionResult> Create([Bind("NotaId,Titulo,Descricao,DataCriacao,Categoria")] Nota nota)
         {
            
                 _context.Add(nota);
@@ -87,34 +87,21 @@ namespace ProjetoParaProjetos.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("NotaId,Titulo,Descricao,DataCriacao")] Nota nota)
+        public async Task<IActionResult> Edit(int id, [Bind("NotaId,Titulo,Descricao,DataCriacao,Categoria")] Nota nota)
         {
             if (id != nota.NotaId)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(nota);
+         
+             _context.Update(nota);
                     await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!NotaExists(nota.NotaId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                
+              
+                
                 return RedirectToAction(nameof(Index));
-            }
-            return View(nota);
+       
         }
 
         // GET: Notas/Delete/5
@@ -152,6 +139,24 @@ namespace ProjetoParaProjetos.Controllers
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        //procurar por categoria
+       
+        public async Task<IActionResult> ProcurarPorCategoria(string categoria)
+        {
+            if (categoria == null || _context.Notas == null)
+            {
+                return NotFound();
+            }
+
+            var notas = await _context.Notas.Where(m => m.Categoria == categoria).ToListAsync();
+            if (notas == null)
+            {
+                return NotFound();
+            }
+
+            return View("Index", notas);
         }
 
         private bool NotaExists(int id)

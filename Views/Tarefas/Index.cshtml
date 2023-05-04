@@ -4,7 +4,36 @@
     ViewData["Title"] = "Index";
     var tarefasFinalizadas = Model.Where(t => t.Status == "Finalizada");
     var tarefasNaoFinalizadas = Model.Where(t => t.Status != "Finalizada");
+
+
+    var categorias = new List<string> { "Front-End", "Trabalho", "Back-End","Data-Science", "Vestibular", "FullStack", "Computação", "Outros" };
+    var prioridades = new List<string> { "Baixa", "Média", "Alta" };
 }
+
+<form asp-action="ProcurarCategoria">
+
+    <label for="categoria">Procurar por Categoria</label>
+    <select name="categoria" id="categoria">
+        @foreach (var item in categorias)
+        {
+            <option name="categoria" value="@item">@item</option>
+        }
+    </select>
+        <button type="submit">Procurar</button>
+</form>
+
+<form asp-action="ProcurarPrioridade">
+
+    <label for="prioridade">Procurar por Categoria</label>
+    <select name="prioridade" id="prioridade">
+        @foreach (var item in prioridades)
+        {
+            <option name="prioridade" value="@item">@item</option>
+        }
+    </select>
+        <button type="submit">Procurar</button>
+</form>
+
 
 <h1>Em Aberto</h1>
 
@@ -29,6 +58,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Prioridade)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Categoria)
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -48,6 +80,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Prioridade)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Categoria)
             </td>
             <td>
                 <form asp-action="Finalizar">
@@ -86,6 +121,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Prioridade)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Categoria)
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -105,6 +143,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Prioridade)
+            </td>   
+            <td>
+                @Html.DisplayFor(modelItem => item.Categoria)
             </td>   
             <td>
                 <a asp-action="Edit" asp-route-id="@item.TarefaId">Edit</a> |

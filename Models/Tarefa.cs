@@ -15,6 +15,7 @@ namespace ProjetoParaProjetos.Models
         public string Status { get; set; }
 
         public string Prioridade { get; set; }
+        public string Categoria { get; set; }
 
     }
 }
