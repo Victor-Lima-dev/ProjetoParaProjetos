@@ -56,15 +56,21 @@ namespace ProjetoParaProjetos.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TarefaId,Nome,Descricao,DataCriacao,DataFinal,Prioridade")] Tarefa tarefa)
+        public async Task<IActionResult> Create(Tarefa tarefa)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(tarefa);
+
+            tarefa.DataCriacao = DateTime.Now;
+            tarefa.DataFinal = DateTime.Now.AddDays(7);
+            tarefa.Status = "Aberta";
+    
+
+
+              _context.Add(tarefa);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
-            return View(tarefa);
+
+
+            
         }
 
         // GET: Tarefas/Edit/5
@@ -159,5 +165,28 @@ namespace ProjetoParaProjetos.Controllers
         {
           return (_context.Tarefas?.Any(e => e.TarefaId == id)).GetValueOrDefault();
         }
+
+        //finaliza a tarefa
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Finalizar(int id)
+        {
+            if (_context.Tarefas == null)
+            {
+                return Problem("Entity set 'AppDbContext.Tarefas'  is null.");
+            }
+            var tarefa = await _context.Tarefas.FindAsync(id);
+            if (tarefa != null)
+            {
+                tarefa.Status = "Finalizada";
+                tarefa.DataFinal = DateTime.Now;
+                _context.Tarefas.Update(tarefa);
+            }
+            
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+
     }
 }

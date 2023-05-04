@@ -27,7 +27,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Prioridade)
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -47,6 +46,14 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Prioridade)
+            </td>
+            <td>
+                <form asp-action="Finalizar">
+
+                <input type="hidden" name="id" value="@item.TarefaId">
+
+                <button type="submit"> Finalizar</button>
+                </form>
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.TarefaId">Edit</a> |

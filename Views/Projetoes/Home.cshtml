@@ -1,7 +1,19 @@
 @model List<Projeto>
 
+@{
+   //pegar o projeto com a data mais recente
+    var projetoRecente = Model.OrderByDescending(x => x.DataInicio).FirstOrDefault();
+    //pegar a quantidade de projetos ativos
+    var projetosAtivos = Model.Where(x => x.Status == "Ativo").Count();
+    //pegar a quantidade de projetos finalizados
+    var projetosFinalizados = Model.Where(x => x.Status == "Finalizado").Count();
+    //pegar a quantidade de projetos em pausa
+    var projetosPausa = Model.Where(x => x.Status == "Pausado").Count();
+
+}
+
 <body>
-    <div class="container d-flex flex-column justify-content-center" style="height: auto;width: auto;">
+    <div class="container d-flex flex-column" style="height: 100vh;width: auto; max-width:60vw">
         <h1 class="text-center">Projetos</h1>
         <div class="row d-flex justify-content-center align-items-center" style="width: auto;">
             <div class="col-md-12 d-flex justify-content-center justify-content-lg-center align-items-lg-center"
@@ -16,9 +28,6 @@
                     <a class="btn btn-primary" type="button"
                         style="margin: 1rem;padding: 1rem;width: 200px;border-radius: 20px;" asp-controller="Projetoes" asp-action="Index">Listar
                         Projetos</a>
-                        <a class="btn btn-primary" type="button"
-                        style="margin: 1rem;padding: 1rem;width: 200px;border-radius: 20px;"asp-controller="Projetoes" asp-action="Index" >Atualizar Projeto
-                        </a>
                 </div>
             </div>
         </div>
@@ -27,37 +36,20 @@
                 <div class="text-center d-flex justify-content-center flex-wrap">
                     <div class="card" style="max-width: 400px;margin: .5rem;">
                         <div class="card-body">
-                            <h4 class="card-title">Projeto Recente</h4>
-                            <h6 class="text-muted card-subtitle mb-2">Nome do Projeto</h6>
-                            <p class="card-text">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio,
-                                dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget
-                                metus.</p><a class="card-link" href="#">Link</a>
-                        </div>
-                    </div>
-                    
-                    <div class="card" style="max-width: 400px;margin: .5rem;">
-                        <div class="card-body">
-                            <h4 class="card-title">Projeto Recente</h4>
-                            <h6 class="text-muted card-subtitle mb-2">Nome do Projeto</h6>
+                            <h4 class="card-title">Status dos Projetos</h4>
+                            <h6 class="text-muted card-subtitle mb-2">Visao Geral</h6>
                             <ul class="list-unstyled">
-                                <li>Contagem de Projetos ativos</li>
-                                <li>Contagem de Projetos Finalizados</li>
-                                <li>Projetos em Pausa</li>
+                                <li>Contagem de Projetos ativos <strong>@projetosAtivos </strong></li>
+                                <li>Contagem de Projetos Finalizados <strong>@projetosFinalizados</strong></li>
+                                <li>Projetos em Pausa <strong>@projetosPausa</strong></li>
                             </ul>
                         </div>
                     </div>
-                    <div class="card" style="max-width: 400px;margin: .5rem;">
-                        <div class="card-body">
-                            <h4 class="card-title">Projeto Recente</h4>
-                            <h6 class="text-muted card-subtitle mb-2">Nome do Projeto</h6>
-                            <p class="card-text">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio,
-                                dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget
-                                metus.</p><a class="card-link" href="#">Link</a>
-                        </div>
-                    </div>
                 </div>
-                <div>
-                    <p>mensagem alertando pra nao ter tanto projeto</p>
+                <div class="alert alert-warning text-center mb-1" role="alert">
+                    <strong>Atenção!</strong> É importante não sobrecarregar-se com muitos projetos em andamento ao
+                    mesmo tempo. Tente priorizar seus projetos e limitar sua lista de tarefas para garantir que possa
+                    dedicar a atenção e o tempo necessários a cada projeto individualmente.
                 </div>
             </div>
         </div>

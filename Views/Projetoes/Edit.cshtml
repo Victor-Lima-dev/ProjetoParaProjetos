@@ -2,6 +2,8 @@
 
 @{
     ViewData["Title"] = "Edit";
+    var _objetivo = ViewData["Objetivos"];
+    var objetivos = _objetivo as IEnumerable<ProjetoParaProjetos.Models.Objetivos>;
 }
 
 <h1>Edit</h1>
@@ -24,35 +26,42 @@
                 <span asp-validation-for="Descricao" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DataInicio" class="control-label"></label>
-                <input asp-for="DataInicio" class="form-control" />
-                <span asp-validation-for="DataInicio" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DataFim" class="control-label"></label>
-                <input asp-for="DataFim" class="form-control" />
-                <span asp-validation-for="DataFim" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="Status" class="control-label"></label>
-                <input asp-for="Status" class="form-control" />
+                <select asp-for="Status" class="form-control">
+                    <option value="Ativo">Ativo</option>
+                    <option value="Pausado">Pausado</option>
+                </select>
                 <span asp-validation-for="Status" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="Objetivo" class="control-label"></label>
-                <input asp-for="Objetivo" class="form-control" />
-                <span asp-validation-for="Objetivo" class="text-danger"></span>
+                <label for="ObjetivoId" class="control-label">Objetivo</label>
+                <select name="ObjetivoId" id="ObjetivoId" class="form-control">
+                    <option value="">Selecione um objetivo</option>
+                    @foreach (var objetivo in objetivos as List<Objetivos>)
+                    {
+                        <option name="ObjetivoId" value="@objetivo.ObjetivosId" id="ObjetivoId">@objetivo.Objetivo</option>
+                        <input type="hidden" name="ObjetivoId" value="@objetivo.ObjetivosId" id="ObjetivoId" />
+
+                    }
+                </select>
             </div>
             <div class="form-group">
-                <label asp-for="Atualiacao" class="control-label"></label>
-                <input asp-for="Atualiacao" class="form-control" />
-                <span asp-validation-for="Atualiacao" class="text-danger"></span>
+                <label for="Categoria" class="control-label">Objetivo</label>
+                <select name="Categoria" id="Categoria" class="form-control">
+                    <option value="">Selecione um objetivo</option>
+
+                        <option name="Categoria" value="Front-End">Front-End</option>
+                        <option name="Categoria" value="Back-End">Back-End</option>
+                        <option name="Categoria" value="Data-Science">Data-Science</option>
+                       
+
+                    
+                </select>
             </div>
-            <div class="form-group">
-                <label asp-for="Selos" class="control-label"></label>
-                <input asp-for="Selos" class="form-control" />
-                <span asp-validation-for="Selos" class="text-danger"></span>
-            </div>
+
+
+
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
@@ -65,5 +74,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

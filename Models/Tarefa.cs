@@ -12,6 +12,7 @@ namespace ProjetoParaProjetos.Models
         public string Descricao { get; set; }
         public DateTime DataCriacao { get; set; }
         public DateTime DataFinal { get; set; }
+        public string Status { get; set; }
 
         public string Prioridade { get; set; }
 

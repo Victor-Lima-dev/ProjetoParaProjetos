@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Index";
+    var objetivo =  ViewData["Objetivos"];           
 }
 
 <h1>Index</h1>
@@ -9,6 +10,22 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<form asp-action="Procurar">
+  <div class="form-group">
+                <label for="status" class="control-label">Filtrar por Status</label>
+                <select name="status" id="status" class="form-control">
+                    <option value="">Selecione um Status</option>
+
+                        <option name="status" value="Finalizado">Finalizado</option>
+                        <option name="status" value="Ativo">Ativo</option>
+                        <option name="status" value="Pausado">Pausado</option>
+                    
+                </select>
+                     <button type="submit">Procurar</button>
+            </div>
+</form>
+
+
 <table class="table">
     <thead>
         <tr>
@@ -22,20 +39,10 @@
                 @Html.DisplayNameFor(model => model.DataInicio)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DataFim)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Status)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Objetivo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Atualiacao)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Selos)
-            </th>
+
+
             <th></th>
         </tr>
     </thead>
@@ -52,19 +59,7 @@
                 @Html.DisplayFor(modelItem => item.DataInicio)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DataFim)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Objetivo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Atualiacao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Selos)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ProjetoId">Edit</a> |

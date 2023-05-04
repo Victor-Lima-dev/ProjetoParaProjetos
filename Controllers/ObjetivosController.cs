@@ -58,13 +58,12 @@ namespace ProjetoParaProjetos.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ObjetivosId,Objetivo,Descricao,Tipo,Status")] Objetivos objetivos)
         {
-            if (ModelState.IsValid)
-            {
+          
                 _context.Add(objetivos);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
-            return View(objetivos);
+            
+           
         }
 
         // GET: Objetivos/Edit/5

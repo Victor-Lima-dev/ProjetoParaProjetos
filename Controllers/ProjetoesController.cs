@@ -22,9 +22,11 @@ namespace ProjetoParaProjetos.Controllers
         // GET: Projetoes
         public async Task<IActionResult> Index()
         {
-              return _context.Projetos != null ? 
-                          View(await _context.Projetos.ToListAsync()) :
-                          Problem("Entity set 'AppDbContext.Projetos'  is null.");
+            var objetivos = _context.Objetivos.ToList();
+            ViewData["Objetivos"] = objetivos;
+            return _context.Projetos != null ?
+                        View(await _context.Projetos.ToListAsync()) :
+                        Problem("Entity set 'AppDbContext.Projetos'  is null.");
         }
 
         // GET: Projetoes/Details/5
@@ -41,6 +43,8 @@ namespace ProjetoParaProjetos.Controllers
             {
                 return NotFound();
             }
+            var objetivos = _context.Objetivos.ToList();
+            ViewData["Objetivos"] = objetivos;
 
             return View(projeto);
         }
@@ -48,23 +52,35 @@ namespace ProjetoParaProjetos.Controllers
         // GET: Projetoes/Create
         public IActionResult Create()
         {
+            //lista de objetivos
+            var objetivos = _context.Objetivos.ToList();
+            ViewData["Objetivos"] = objetivos;
+
             return View();
         }
 
         // POST: Projetoes/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // For more details, see http://go.mi'crosoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProjetoId,Nome,Descricao,DataInicio,DataFim,Status,Objetivo,Atualiacao,Selos")] Projeto projeto)
+        public async Task<IActionResult> Create(Projeto projeto)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(projeto);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(projeto);
+            var objetivos = _context.Objetivos.ToList();
+            ViewData["Objetivos"] = objetivos;
+
+            projeto.Atualiacao = DateTime.Now;
+            projeto.Status = "Ativo";
+            projeto.Selos = "Nenhum";
+
+            projeto.DataInicio = DateTime.Now;
+
+            _context.Add(projeto);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+
+
+
         }
 
         // GET: Projetoes/Edit/5
@@ -74,6 +90,8 @@ namespace ProjetoParaProjetos.Controllers
             {
                 return NotFound();
             }
+            var objetivos = _context.Objetivos.ToList();
+            ViewData["Objetivos"] = objetivos;
 
             var projeto = await _context.Projetos.FindAsync(id);
             if (projeto == null)
@@ -88,34 +106,34 @@ namespace ProjetoParaProjetos.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProjetoId,Nome,Descricao,DataInicio,DataFim,Status,Objetivo,Atualiacao,Selos")] Projeto projeto)
+        public async Task<IActionResult> Edit(int id, Projeto projeto)
         {
             if (id != projeto.ProjetoId)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            projeto.Selos = "Nenhum";
+
+
+            try
             {
-                try
-                {
-                    _context.Update(projeto);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ProjetoExists(projeto.ProjetoId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                _context.Update(projeto);
+                await _context.SaveChangesAsync();
             }
-            return View(projeto);
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ProjetoExists(projeto.ProjetoId))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction(nameof(Index));
+
         }
 
         // GET: Projetoes/Delete/5
@@ -150,16 +168,16 @@ namespace ProjetoParaProjetos.Controllers
             {
                 _context.Projetos.Remove(projeto);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ProjetoExists(int id)
         {
-          return (_context.Projetos?.Any(e => e.ProjetoId == id)).GetValueOrDefault();
+            return (_context.Projetos?.Any(e => e.ProjetoId == id)).GetValueOrDefault();
         }
-    
+
 
 
         //GET: Projetoes/Home
@@ -167,15 +185,57 @@ namespace ProjetoParaProjetos.Controllers
         public IActionResult Home()
         {
             var projetos = _context.Projetos.ToList();
-            //pegar o projeto mais recente
-            var projeto = projetos.LastOrDefault();
-            
+
             var contagem = projetos.Count();
-            
+
+            //passar uma view data com os objetivos possiveis
 
 
             return View(projetos);
         }
-    
+
+
+        //POST: finalizar projeto
+        [HttpPost]
+        public async Task<IActionResult> Finalizar(int id)
+        {
+            if (_context.Projetos == null)
+            {
+                return Problem("Entity set 'AppDbContext.Projetos'  is null.");
+            }
+            var projeto = await _context.Projetos.FindAsync(id);
+            if (projeto != null)
+            {
+                projeto.Status = "Finalizado";
+                projeto.DataFim = DateTime.Now;
+                _context.Projetos.Update(projeto);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        //procurar por status
+        [HttpPost]
+        public async Task<IActionResult> Procurar(string status)
+        {
+            if (status == "")
+            {
+                var objetivos = _context.Objetivos.ToList();
+                ViewData["Objetivos"] = objetivos;
+                
+                return RedirectToAction(nameof(Index));
+            }
+
+
+            if (_context.Projetos == null)
+            {
+                return Problem("Entity set 'AppDbContext.Projetos'  is null.");
+            }
+            var projetos = await _context.Projetos.Where(p => p.Status == status).ToListAsync();
+            return View("Index", projetos);
+        }
+
+
     }
 }

@@ -13,8 +13,16 @@ namespace ProjetoParaProjetos.Models
         public DateTime DataInicio { get; set; }
         public DateTime DataFim { get; set; }
         public string Status { get; set; }
-        public string Objetivo { get; set; }
+        public Objetivos Objetivo { get; set; }
+        public int? ObjetivoId { get; set; }
         public DateTime Atualiacao { get; set; }
         public string Selos { get; set; }
+
+        public string Categoria { get; set; }
+
+        public List<Nota> Notas { get; set; }
+        
+
+
     }
 }

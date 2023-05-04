@@ -11,8 +11,8 @@ using ProjetoParaProjetos.context;
 namespace ProjetoParaProjetos.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230426235225_Novos Itens")]
-    partial class NovosItens
+    [Migration("20230504023933_status tarefa")]
+    partial class statustarefa
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,11 +35,21 @@ namespace ProjetoParaProjetos.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<int?>("ObjetivosId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ProjetoId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Titulo")
                         .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("NotaId");
+
+                    b.HasIndex("ObjetivosId");
+
+                    b.HasIndex("ProjetoId");
 
                     b.ToTable("Notas");
                 });
@@ -80,6 +90,10 @@ namespace ProjetoParaProjetos.Migrations
                     b.Property<DateTime>("Atualiacao")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<string>("Categoria")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<DateTime>("DataFim")
                         .HasColumnType("datetime(6)");
 
@@ -94,9 +108,8 @@ namespace ProjetoParaProjetos.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Objetivo")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<int?>("ObjetivoId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Selos")
                         .IsRequired()
@@ -107,6 +120,8 @@ namespace ProjetoParaProjetos.Migrations
                         .HasColumnType("longtext");
 
                     b.HasKey("ProjetoId");
+
+                    b.HasIndex("ObjetivoId");
 
                     b.ToTable("Projetos");
                 });
@@ -154,9 +169,42 @@ namespace ProjetoParaProjetos.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.HasKey("TarefaId");
 
                     b.ToTable("Tarefas");
+                });
+
+            modelBuilder.Entity("ProjetoParaProjetos.Models.Nota", b =>
+                {
+                    b.HasOne("ProjetoParaProjetos.Models.Objetivos", "Objetivos")
+                        .WithMany()
+                        .HasForeignKey("ObjetivosId");
+
+                    b.HasOne("ProjetoParaProjetos.Models.Projeto", "Projeto")
+                        .WithMany("Notas")
+                        .HasForeignKey("ProjetoId");
+
+                    b.Navigation("Objetivos");
+
+                    b.Navigation("Projeto");
+                });
+
+            modelBuilder.Entity("ProjetoParaProjetos.Models.Projeto", b =>
+                {
+                    b.HasOne("ProjetoParaProjetos.Models.Objetivos", "Objetivo")
+                        .WithMany()
+                        .HasForeignKey("ObjetivoId");
+
+                    b.Navigation("Objetivo");
+                });
+
+            modelBuilder.Entity("ProjetoParaProjetos.Models.Projeto", b =>
+                {
+                    b.Navigation("Notas");
                 });
 #pragma warning restore 612, 618
         }
