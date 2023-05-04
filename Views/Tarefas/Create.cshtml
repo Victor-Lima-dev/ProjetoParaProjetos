@@ -24,7 +24,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="Prioridade" class="control-label"></label>
-                <input asp-for="Prioridade" class="form-control" />
+                <select name="Prioridade" id="Prioridade" class="form-control">
+                    @foreach (var item in ViewData["Prioridades"] as List<string>)
+                    {
+                        <option value="@item">@item</option>
+                    }
+                     </select>
                 <span asp-validation-for="Prioridade" class="text-danger"></span>
             </div>
             <div class="form-group">

@@ -22,9 +22,9 @@ namespace ProjetoParaProjetos.Controllers
         // GET: Objetivos
         public async Task<IActionResult> Index()
         {
-              return _context.Objetivos != null ? 
-                          View(await _context.Objetivos.ToListAsync()) :
-                          Problem("Entity set 'AppDbContext.Objetivos'  is null.");
+            return _context.Objetivos != null ?
+                        View(await _context.Objetivos.ToListAsync()) :
+                        Problem("Entity set 'AppDbContext.Objetivos'  is null.");
         }
 
         // GET: Objetivos/Details/5
@@ -48,6 +48,9 @@ namespace ProjetoParaProjetos.Controllers
         // GET: Objetivos/Create
         public IActionResult Create()
         {
+            List<string> listaTipos = new List<string> { "Programação", "Data Science", "Vestibular", "Cloud", "Academia", "Outros" };
+            ViewData["Tipos"] = listaTipos;
+
             return View();
         }
 
@@ -58,12 +61,13 @@ namespace ProjetoParaProjetos.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ObjetivosId,Objetivo,Descricao,Tipo,Status")] Objetivos objetivos)
         {
-          
-                _context.Add(objetivos);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            
-           
+
+            objetivos.Status = "Ativo";
+            _context.Add(objetivos);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+
+
         }
 
         // GET: Objetivos/Edit/5
@@ -73,6 +77,10 @@ namespace ProjetoParaProjetos.Controllers
             {
                 return NotFound();
             }
+             List<string> listaTipos = new List<string> { "Programação", "Data Science", "Vestibular", "Cloud", "Academia", "Outros" };
+             List<string> listaStatus = new List<string> { "Ativo", "Inativo" };
+            ViewData["Status"] = listaStatus;
+            ViewData["Tipos"] = listaTipos;
 
             var objetivos = await _context.Objetivos.FindAsync(id);
             if (objetivos == null)
@@ -149,14 +157,14 @@ namespace ProjetoParaProjetos.Controllers
             {
                 _context.Objetivos.Remove(objetivos);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ObjetivosExists(int id)
         {
-          return (_context.Objetivos?.Any(e => e.ObjetivosId == id)).GetValueOrDefault();
+            return (_context.Objetivos?.Any(e => e.ObjetivosId == id)).GetValueOrDefault();
         }
     }
 }

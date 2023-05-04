@@ -113,6 +113,12 @@ namespace ProjetoParaProjetos.Controllers
                 return NotFound();
             }
 
+            //pegar o projeto do banco
+            // var projetoBanco = await _context.Projetos.FindAsync(id);
+
+            // projeto.DataInicio = projetoBanco.DataInicio;
+            // projeto.Atualiacao = DateTime.Now;
+
             projeto.Selos = "Nenhum";
 
 

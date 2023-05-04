@@ -2,9 +2,11 @@
 
 @{
     ViewData["Title"] = "Index";
+    var tarefasFinalizadas = Model.Where(t => t.Status == "Finalizada");
+    var tarefasNaoFinalizadas = Model.Where(t => t.Status != "Finalizada");
 }
 
-<h1>Index</h1>
+<h1>Em Aberto</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -30,7 +32,7 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in tarefasNaoFinalizadas) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Nome)
@@ -55,6 +57,55 @@
                 <button type="submit"> Finalizar</button>
                 </form>
             </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.TarefaId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.TarefaId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.TarefaId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<h1>Atividades Finalizadas</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descricao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataCriacao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataFinal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prioridade)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in tarefasFinalizadas) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descricao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataCriacao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataFinal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Prioridade)
+            </td>   
             <td>
                 <a asp-action="Edit" asp-route-id="@item.TarefaId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.TarefaId">Details</a> |

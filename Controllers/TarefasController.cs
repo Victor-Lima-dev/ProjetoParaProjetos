@@ -22,9 +22,9 @@ namespace ProjetoParaProjetos.Controllers
         // GET: Tarefas
         public async Task<IActionResult> Index()
         {
-              return _context.Tarefas != null ? 
-                          View(await _context.Tarefas.ToListAsync()) :
-                          Problem("Entity set 'AppDbContext.Tarefas'  is null.");
+            return _context.Tarefas != null ?
+                        View(await _context.Tarefas.ToListAsync()) :
+                        Problem("Entity set 'AppDbContext.Tarefas'  is null.");
         }
 
         // GET: Tarefas/Details/5
@@ -48,6 +48,8 @@ namespace ProjetoParaProjetos.Controllers
         // GET: Tarefas/Create
         public IActionResult Create()
         {
+            var prioridades = new List<string> { "Baixa", "Média", "Alta" };
+            ViewData["Prioridades"] = prioridades;
             return View();
         }
 
@@ -62,15 +64,17 @@ namespace ProjetoParaProjetos.Controllers
             tarefa.DataCriacao = DateTime.Now;
             tarefa.DataFinal = DateTime.Now.AddDays(7);
             tarefa.Status = "Aberta";
-    
 
 
-              _context.Add(tarefa);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
 
 
-            
+
+            _context.Add(tarefa);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+
+
+
         }
 
         // GET: Tarefas/Edit/5
@@ -86,6 +90,8 @@ namespace ProjetoParaProjetos.Controllers
             {
                 return NotFound();
             }
+            var prioridades = new List<string> { "Baixa", "Média", "Alta" };
+            ViewData["Prioridades"] = prioridades;
             return View(tarefa);
         }
 
@@ -100,6 +106,9 @@ namespace ProjetoParaProjetos.Controllers
             {
                 return NotFound();
             }
+            var prioridades = new List<string> { "Baixa", "Média", "Alta" };
+            ViewData["Prioridades"] = prioridades;
+
 
             if (ModelState.IsValid)
             {
@@ -156,14 +165,14 @@ namespace ProjetoParaProjetos.Controllers
             {
                 _context.Tarefas.Remove(tarefa);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool TarefaExists(int id)
         {
-          return (_context.Tarefas?.Any(e => e.TarefaId == id)).GetValueOrDefault();
+            return (_context.Tarefas?.Any(e => e.TarefaId == id)).GetValueOrDefault();
         }
 
         //finaliza a tarefa
@@ -176,13 +185,19 @@ namespace ProjetoParaProjetos.Controllers
                 return Problem("Entity set 'AppDbContext.Tarefas'  is null.");
             }
             var tarefa = await _context.Tarefas.FindAsync(id);
+
+            if (tarefa.Status == "Finalizada")
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
             if (tarefa != null)
             {
                 tarefa.Status = "Finalizada";
                 tarefa.DataFinal = DateTime.Now;
                 _context.Tarefas.Update(tarefa);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
