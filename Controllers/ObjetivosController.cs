@@ -97,32 +97,20 @@ namespace ProjetoParaProjetos.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ObjetivosId,Objetivo,Descricao,Tipo,Status")] Objetivos objetivos)
         {
-            if (id != objetivos.ObjetivosId)
-            {
-                return NotFound();
-            }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
+              List<string> listaTipos = new List<string> { "Programação", "Data Science", "Vestibular", "Cloud", "Academia", "Outros" };
+            List<string> listaStatus = new List<string> { "Ativo", "Inativo" };
+            ViewData["Status"] = listaStatus;
+            ViewData["Tipos"] = listaTipos;
+           
                     _context.Update(objetivos);
                     await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ObjetivosExists(objetivos.ObjetivosId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+
+
+
+             
                 return RedirectToAction(nameof(Index));
-            }
-            return View(objetivos);
+          
         }
 
         // GET: Objetivos/Delete/5
