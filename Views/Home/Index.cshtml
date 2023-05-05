@@ -66,7 +66,14 @@
 
                             @foreach (var item in listaTarefasTrabalhoAbertas)
                             {
-                                <li class="card-text">@item.Nome</li>
+                                <li class="card-text">@item.Nome        
+                                    <form asp-controller="Tarefas" asp-action="Finalizar">
+
+                                        <input type="hidden" name="id" value="@item.TarefaId">
+
+                                        <button type="submit"> Finalizar</button>
+                                    </form>
+                                </li>
                             }
 
                         </ul><a class="card-link" asp-controller="Tarefas" asp-action="Index">Ver todas</a>
@@ -90,7 +97,14 @@
 
                         @foreach (var item in listaTarefasOutrasAbertas)
                         {
-                            <li class="card-text">@item.Nome</li>
+                           <li class="card-text">@item.Nome        
+                                    <form asp-controller="Tarefas" asp-action="Finalizar">
+
+                                        <input type="hidden" name="id" value="@item.TarefaId">
+
+                                        <button type="submit"> Finalizar</button>
+                                    </form>
+                                </li>
                         }
 
                     </ul><a class="card-link" asp-controller="Tarefas" asp-action="Index">Ver todas</a>
