@@ -220,6 +220,18 @@ var categorias = new List<string> { "Front-End", "Trabalho", "Back-End","Data-Sc
             return View(nameof(Index), tarefas);
         }
 
+        //procurar por data
+        public async Task<IActionResult> ProcurarData(DateTime data)
+        {
+            if (_context.Tarefas == null)
+            {
+                return Problem("Entity set 'AppDbContext.Tarefas'  is null.");
+            }
+            //considerar a data de criação e sem usar as horas
+            var tarefas = await _context.Tarefas.Where(t => t.DataCriacao.Date == data.Date).ToListAsync();
+
+           
+            return View(nameof(Index), tarefas);
 
     }
-}
+}}

@@ -52,7 +52,21 @@
     </div>
 </form>
 
+<form asp-action="Details">
+    <div class="form-group">
+        <label for="" class="control-label">Procurar pelo nome</label>
+        <select name ="id" id="id" class="form-control">
+            <option value="">Selecione um Projeto</option>
+            @foreach (var item in Model)
+            {
+                <option name="id" value="@item.ProjetoId">@item.Nome</option>
+            }
+        </select>
+            <button type="submit">Procurar</button>
+    </div>
 
+
+</form>
 @if (contagemAtivos == true)
 {
     

@@ -284,9 +284,8 @@ namespace ProjetoParaProjetos.Controllers
             ViewData["Objetivos"] = objetivos;
 
             return View("Index", projetos);
-
-
-
         }
+
+
     }
 }
