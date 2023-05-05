@@ -108,7 +108,7 @@ var categorias = new List<string> { "Front-End", "Trabalho", "Back-End","Data-Sc
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("TarefaId,Nome,Descricao,DataCriacao,DataFinal,Prioridade")] Tarefa tarefa)
+        public async Task<IActionResult> Edit(int id, [Bind("TarefaId,Nome,Descricao,DataCriacao,DataFinal,Prioridade,Categoria")] Tarefa tarefa)
         {
             if (id != tarefa.TarefaId)
             {
