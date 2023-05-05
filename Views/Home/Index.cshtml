@@ -7,7 +7,7 @@
 
     //verificar se a hora atual esta entra 10h e 17h
 
-    var horaConfere = data.Hour >= 10 && data.Hour < 17;
+    var horaConfere = data.Hour >= 07 && data.Hour < 20;
 
     // Filtrar as tarefas que foram criadas no dia atual
     var listaTarefas = Model.Tarefas.Where(t => t.DataCriacao.Day == diaAtual).ToList();
