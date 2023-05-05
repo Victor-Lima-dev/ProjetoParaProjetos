@@ -120,28 +120,14 @@ var categorias = new List<string> { "Front-End", "Trabalho", "Back-End","Data-Sc
             ViewData["Categorias"] = categorias;
 
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
+           
                     _context.Update(tarefa);
                     await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!TarefaExists(tarefa.TarefaId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+             
+                    
                 return RedirectToAction(nameof(Index));
             }
-            return View(tarefa);
-        }
+    
 
         // GET: Tarefas/Delete/5
         public async Task<IActionResult> Delete(int? id)
