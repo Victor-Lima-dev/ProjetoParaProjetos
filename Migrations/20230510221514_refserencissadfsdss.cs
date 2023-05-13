@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ProjetoParaProjetos.Migrations
 {
     /// <inheritdoc />
-    public partial class statustarefa : Migration
+    public partial class refserencissadfsdss : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -68,6 +68,8 @@ namespace ProjetoParaProjetos.Migrations
                     Status = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Prioridade = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Categoria = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
@@ -90,7 +92,7 @@ namespace ProjetoParaProjetos.Migrations
                     DataFim = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Status = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    ObjetivoId = table.Column<int>(type: "int", nullable: true),
+                    ObjetivosId = table.Column<int>(type: "int", nullable: false),
                     Atualiacao = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Selos = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -101,10 +103,11 @@ namespace ProjetoParaProjetos.Migrations
                 {
                     table.PrimaryKey("PK_Projetos", x => x.ProjetoId);
                     table.ForeignKey(
-                        name: "FK_Projetos_Objetivos_ObjetivoId",
-                        column: x => x.ObjetivoId,
+                        name: "FK_Projetos_Objetivos_ObjetivosId",
+                        column: x => x.ObjetivosId,
                         principalTable: "Objetivos",
-                        principalColumn: "ObjetivosId");
+                        principalColumn: "ObjetivosId",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -120,7 +123,11 @@ namespace ProjetoParaProjetos.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     DataCriacao = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     ProjetoId = table.Column<int>(type: "int", nullable: true),
-                    ObjetivosId = table.Column<int>(type: "int", nullable: true)
+                    ObjetivosId = table.Column<int>(type: "int", nullable: true),
+                    Categoria = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Revisao = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    DataRevisao = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -138,6 +145,88 @@ namespace ProjetoParaProjetos.Migrations
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
+            migrationBuilder.CreateTable(
+                name: "FlashCards",
+                columns: table => new
+                {
+                    FlashCardId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Pergunta = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Resposta = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Titulo = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ObjetivosId = table.Column<int>(type: "int", nullable: false),
+                    NotaId = table.Column<int>(type: "int", nullable: false),
+                    ProjetoId = table.Column<int>(type: "int", nullable: false),
+                    Tipo = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Categoria = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FlashCards", x => x.FlashCardId);
+                    table.ForeignKey(
+                        name: "FK_FlashCards_Notas_NotaId",
+                        column: x => x.NotaId,
+                        principalTable: "Notas",
+                        principalColumn: "NotaId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FlashCards_Objetivos_ObjetivosId",
+                        column: x => x.ObjetivosId,
+                        principalTable: "Objetivos",
+                        principalColumn: "ObjetivosId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FlashCards_Projetos_ProjetoId",
+                        column: x => x.ProjetoId,
+                        principalTable: "Projetos",
+                        principalColumn: "ProjetoId",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Referencias",
+                columns: table => new
+                {
+                    ReferenciaId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Tipo = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    FlashCardId = table.Column<int>(type: "int", nullable: false),
+                    ReferenciaTipo = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Referencias", x => x.ReferenciaId);
+                    table.ForeignKey(
+                        name: "FK_Referencias_FlashCards_FlashCardId",
+                        column: x => x.FlashCardId,
+                        principalTable: "FlashCards",
+                        principalColumn: "FlashCardId",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FlashCards_NotaId",
+                table: "FlashCards",
+                column: "NotaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FlashCards_ObjetivosId",
+                table: "FlashCards",
+                column: "ObjetivosId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FlashCards_ProjetoId",
+                table: "FlashCards",
+                column: "ProjetoId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_Notas_ObjetivosId",
                 table: "Notas",
@@ -149,22 +238,33 @@ namespace ProjetoParaProjetos.Migrations
                 column: "ProjetoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Projetos_ObjetivoId",
+                name: "IX_Projetos_ObjetivosId",
                 table: "Projetos",
-                column: "ObjetivoId");
+                column: "ObjetivosId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Referencias_FlashCardId",
+                table: "Referencias",
+                column: "FlashCardId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Notas");
+                name: "Referencias");
 
             migrationBuilder.DropTable(
                 name: "SelosAprendizado");
 
             migrationBuilder.DropTable(
                 name: "Tarefas");
+
+            migrationBuilder.DropTable(
+                name: "FlashCards");
+
+            migrationBuilder.DropTable(
+                name: "Notas");
 
             migrationBuilder.DropTable(
                 name: "Projetos");

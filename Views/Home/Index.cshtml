@@ -27,7 +27,6 @@
 
     // filtrar os projetos ativos
     var listaProjetos = Model.Projetos.Where(p => p.Status == "Ativo").ToList();
-
 }
 
 
@@ -79,15 +78,7 @@
                         </ul><a class="card-link" asp-controller="Tarefas" asp-action="Index">Ver todas</a>
                     </div>
                 </div>
-
-
             }
-
-
-
-
-
-
             <div class="card" style="margin: 1rem;">
                 <div class="card-body"
                     style="text-align: center;width: 300px;max-width: 400px;height: auto;min-height:200px">

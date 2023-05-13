@@ -159,7 +159,6 @@ namespace ProjetoParaProjetos.Controllers
 
             return View(projeto);
         }
-
         // POST: Projetoes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

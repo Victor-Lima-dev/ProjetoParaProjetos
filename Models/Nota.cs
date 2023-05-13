@@ -13,16 +13,21 @@ namespace ProjetoParaProjetos.Models
         public DateTime DataCriacao { get; set; }
 
         public int? ProjetoId { get; set; }
-        public Projeto Projeto { get; set; }
+        public Projeto? Projeto { get; set; }
 
         public int? ObjetivosId { get; set; }
-        public Objetivos Objetivos { get; set; }
+        public Objetivos? Objetivos { get; set; }
 
         public string Categoria { get; set; }
 
         public Boolean Revisao { get; set; }
 
         public DateTime DataRevisao { get; set; }
+
+        public List<FlashCard> FlashCards { get; set; } = new List<FlashCard>();
+        
+
+
         
     }
 }

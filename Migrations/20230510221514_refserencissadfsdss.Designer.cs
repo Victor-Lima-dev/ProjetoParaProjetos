@@ -11,8 +11,8 @@ using ProjetoParaProjetos.context;
 namespace ProjetoParaProjetos.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230504155343_categoria tarefas")]
-    partial class categoriatarefas
+    [Migration("20230510221514_refserencissadfsdss")]
+    partial class refserencissadfsdss
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -22,13 +22,66 @@ namespace ProjetoParaProjetos.Migrations
                 .HasAnnotation("ProductVersion", "7.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
+            modelBuilder.Entity("ProjetoParaProjetos.Models.FlashCard", b =>
+                {
+                    b.Property<int>("FlashCardId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Categoria")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("NotaId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ObjetivosId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Pergunta")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("ProjetoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Resposta")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Tipo")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Titulo")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("FlashCardId");
+
+                    b.HasIndex("NotaId");
+
+                    b.HasIndex("ObjetivosId");
+
+                    b.HasIndex("ProjetoId");
+
+                    b.ToTable("FlashCards");
+                });
+
             modelBuilder.Entity("ProjetoParaProjetos.Models.Nota", b =>
                 {
                     b.Property<int>("NotaId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<string>("Categoria")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<DateTime>("DataCriacao")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("DataRevisao")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Descricao")
@@ -40,6 +93,9 @@ namespace ProjetoParaProjetos.Migrations
 
                     b.Property<int?>("ProjetoId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("Revisao")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Titulo")
                         .IsRequired()
@@ -108,7 +164,7 @@ namespace ProjetoParaProjetos.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("ObjetivoId")
+                    b.Property<int>("ObjetivosId")
                         .HasColumnType("int");
 
                     b.Property<string>("Selos")
@@ -121,9 +177,32 @@ namespace ProjetoParaProjetos.Migrations
 
                     b.HasKey("ProjetoId");
 
-                    b.HasIndex("ObjetivoId");
+                    b.HasIndex("ObjetivosId");
 
                     b.ToTable("Projetos");
+                });
+
+            modelBuilder.Entity("ProjetoParaProjetos.Models.Referencia", b =>
+                {
+                    b.Property<int>("ReferenciaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("FlashCardId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ReferenciaTipo")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Tipo")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("ReferenciaId");
+
+                    b.HasIndex("FlashCardId");
+
+                    b.ToTable("Referencias");
                 });
 
             modelBuilder.Entity("ProjetoParaProjetos.Models.SeloAprendizado", b =>
@@ -182,6 +261,27 @@ namespace ProjetoParaProjetos.Migrations
                     b.ToTable("Tarefas");
                 });
 
+            modelBuilder.Entity("ProjetoParaProjetos.Models.FlashCard", b =>
+                {
+                    b.HasOne("ProjetoParaProjetos.Models.Nota", null)
+                        .WithMany("FlashCards")
+                        .HasForeignKey("NotaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProjetoParaProjetos.Models.Objetivos", null)
+                        .WithMany("FlashCards")
+                        .HasForeignKey("ObjetivosId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProjetoParaProjetos.Models.Projeto", null)
+                        .WithMany("FlashCards")
+                        .HasForeignKey("ProjetoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("ProjetoParaProjetos.Models.Nota", b =>
                 {
                     b.HasOne("ProjetoParaProjetos.Models.Objetivos", "Objetivos")
@@ -201,13 +301,38 @@ namespace ProjetoParaProjetos.Migrations
                 {
                     b.HasOne("ProjetoParaProjetos.Models.Objetivos", "Objetivo")
                         .WithMany()
-                        .HasForeignKey("ObjetivoId");
+                        .HasForeignKey("ObjetivosId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Objetivo");
                 });
 
+            modelBuilder.Entity("ProjetoParaProjetos.Models.Referencia", b =>
+                {
+                    b.HasOne("ProjetoParaProjetos.Models.FlashCard", "FlashCard")
+                        .WithMany()
+                        .HasForeignKey("FlashCardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("FlashCard");
+                });
+
+            modelBuilder.Entity("ProjetoParaProjetos.Models.Nota", b =>
+                {
+                    b.Navigation("FlashCards");
+                });
+
+            modelBuilder.Entity("ProjetoParaProjetos.Models.Objetivos", b =>
+                {
+                    b.Navigation("FlashCards");
+                });
+
             modelBuilder.Entity("ProjetoParaProjetos.Models.Projeto", b =>
                 {
+                    b.Navigation("FlashCards");
+
                     b.Navigation("Notas");
                 });
 #pragma warning restore 612, 618

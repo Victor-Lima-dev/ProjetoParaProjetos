@@ -12,6 +12,9 @@ namespace ProjetoParaProjetos.Models
         public string Descricao { get; set; }
         public string Tipo { get; set; }
         public string Status { get; set; }
+
+        public List<FlashCard> FlashCards { get; set; } = new List<FlashCard>();
+
         
     }
 }
