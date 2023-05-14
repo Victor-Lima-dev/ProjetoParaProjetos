@@ -11,7 +11,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IBancoDados, BancoDadosRepositorio>();
 
 
-string mySqlConnectionStr = builder.Configuration.GetConnectionString("DefaultConnection2");
+string mySqlConnectionStr = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseMySql (mySqlConnectionStr, ServerVersion. AutoDetect (mySqlConnectionStr)));
 
