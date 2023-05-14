@@ -1,0 +1,35 @@
+﻿@model ProjetoParaProjetos.Models.ViewModels.QuestaoAlternativaViewlModel
+
+<h1>Details</h1>
+
+<div>
+    <h4>Questao</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Enunciado</dt>
+        <dd class="col-sm-10">@Model.Questao.Enunciado</dd>
+
+        <dt class="col-sm-2">Resposta Correta</dt>
+        <dd class="col-sm-10">@Model.Questao.RespostaCorreta</dd>
+    </dl>
+</div>
+
+<div>
+    <h4>Alternativas</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Alternativa 1</dt>
+        <dd class="col-sm-10">@Model.Alternativa1.Texto</dd>
+
+        <dt class="col-sm-2">Alternativa 2</dt>
+        <dd class="col-sm-10">@Model.Alternativa2.Texto</dd>
+
+        <dt class="col-sm-2">Alternativa 3</dt>
+        <dd class="col-sm-10">@Model.Alternativa3.Texto</dd>
+    </dl>
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Questao.QuestaoId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

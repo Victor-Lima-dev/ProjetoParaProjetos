@@ -1,0 +1,86 @@
+﻿@model IEnumerable<ProjetoParaProjetos.Models.CasoClinico>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<style>
+    .bg-primary {
+        background-color: #0099cc !important;
+    }
+
+    .btn-primary {
+        background-color: #66cc66 !important;
+        border-color: #66cc66 !important;
+    }
+
+    .text-primary {
+        color: #0099cc !important;
+    }
+
+    .card {
+        width: 100%;
+        margin: 1rem;
+        border: 0.0625rem solid #0099cc;
+        border-radius: 0.625rem;
+        box-shadow: 0.125rem 0.125rem 0.3125rem rgba(0, 0, 0, 0.1);
+
+       
+    }
+
+    .card-body {
+        padding: 0.9375rem;
+    }
+
+    .card-title {
+        font-weight: bold;
+        font-size: 1.8rem;
+        margin-bottom: 0.625rem;
+    }
+
+    .card-text {
+        font-size: 1.35rem;
+        margin-bottom: 0.625rem;
+    }
+
+    .card-link {
+        font-size: 1.2rem;
+        margin-right: 0.625rem;
+        color: #0099cc;
+        text-decoration: none;
+    }
+
+    .card-link:hover {
+        text-decoration: underline;
+    }
+
+  
+</style>
+
+<h1 class="text-center text-primary">Index</h1>
+
+<p class="text-center">
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
+</p>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="d-flex flex-wrap align-items-stretch justify-content-center">
+                @foreach (var item in Model)
+                {
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"></h5>
+                            <p class="card-text">@Html.DisplayFor(modelItem => item.Caso)</p>
+                            <a asp-action="Edit" asp-route-id="@item.CasoClinicoId" class="card-link">Edit</a>
+                            <a asp-action="Details" asp-route-id="@item.CasoClinicoId" class="card-link">Details</a>
+                            <a asp-action="Delete" asp-route-id="@item.CasoClinicoId" class="card-link">Delete</a>
+                            <a asp-controller="Questaos" asp-action="QuizLista" asp-route-id="@item.CasoClinicoId"
+                                class="card-link">Questoes</a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

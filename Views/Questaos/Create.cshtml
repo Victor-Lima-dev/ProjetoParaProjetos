@@ -1,0 +1,98 @@
+﻿@model ProjetoParaProjetos.Models.ViewModels.QuestaoAlternativaViewlModel
+
+@{
+
+    var listaCasos = (List<CasoClinico>)ViewData["ListaCasosClinicos"];
+
+}
+
+<style>
+    .bg-primary {
+        background-color: #0099cc !important;
+    }
+
+    .btn-primary {
+        background-color: #66cc66 !important;
+        border-color: #66cc66 !important;
+    }
+
+    .text-primary {
+        color: #0099cc !important;
+    }
+
+    .form-group {
+        margin-bottom: 0.625rem;
+    }
+
+    .form-control {
+        border-radius: 0.625rem;
+        box-shadow: inset 0.0625rem 0.0625rem 0.1875rem rgba(0, 0, 0, 0.1);
+    }
+
+    .form-control:focus {
+        border-color: #0099cc;
+        box-shadow: inset 0.0625rem 0.0625rem 0.1875rem rgba(0, 0, 0, 0.1), 0 0 0.3125rem rgba(0, 153, 204, 0.25);
+        outline: none;
+    }
+
+    
+   
+
+</style>
+
+<h1 class="text-center text-primary">Create</h1>
+
+<h4 class="text-center text-primary">Questao</h4>
+<hr />
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form asp-action="Create" method="post">
+                <div class="form-group">
+                    <label for="CasoClinicoId" class="control-label">Caso Clinico</label>
+                    <select asp-for="Questao.CasoClinicoId" class="form-control select" style="white-space: normal;">
+                        @foreach (var item in listaCasos)
+                        {
+                            <option name="QuestaoCasoClinicoId" value="@item.CasoClinicoId">@item.Caso</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="Enunciado" class="control-label">Enunciado</label>
+                    <input type="text" name="Questao.Enunciado" id="Enunciado" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label for="RepostaCorreta" class="control-label">Resposta Correta</label>
+                    <input type="text" name="Questao.RespostaCorreta" id="RespostaCorreta" class="form-control" />
+                </div>
+
+                <h4 class="text-center text-primary">Alternativa 1</h4>
+                <hr />
+                <div class="form-group">
+                    <label for="Alternativa1.Texto" class="control-label">Texto</label>
+                    <input type="text" name="Alternativa1.Texto" id="Alternativa1.Texto" class="form-control" />
+                </div>
+
+                <h4 class="text-center text-primary">Alternativa 2</h4>
+                <hr />
+                <div class="form-group">
+                    <label for="Alternativa2.Texto" class="control-label">Texto</label>
+                    <input type="text" name="Alternativa2.Texto" id="Alternativa2.Texto" class="form-control" />
+                </div>
+
+                <h4 class="text-center text-primary">Alternativa 3</h4>
+                <hr />
+                <div class="form-group">
+                    <label for="Alternativa3.Texto" class="control-label">Texto</label>
+                    <input type="text" name="Alternativa3.Texto" id="Alternativa3.Texto" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary btn-block" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

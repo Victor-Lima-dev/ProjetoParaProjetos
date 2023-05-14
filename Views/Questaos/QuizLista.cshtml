@@ -1,0 +1,84 @@
+@model List<ProjetoParaProjetos.Models.ViewModels.QuizViewModel>
+
+<style>
+    .bg-primary {
+        background-color: #0099cc !important;
+    }
+
+    .btn-primary {
+        background-color: #66cc66 !important;
+        border-color: #66cc66 !important;
+    }
+
+    .text-primary {
+        color: #0099cc !important;
+    }
+
+    .alert-success {
+        background-color: #66cc66 !important;
+        border-color: #66cc66 !important;
+    }
+
+    .alert-danger {
+        background-color: #cc0000 !important;
+        border-color: #cc0000 !important;
+    }
+</style>
+
+<h1 class="text-center text-primary">Quiz</h1>
+
+@{
+    //pegar o primeiro da lista
+    var primeiraQuestao = Model.FirstOrDefault();
+    var casoClinico = primeiraQuestao.CasoClinico;
+}
+
+
+@{
+    if (TempData["RespostaCorreta"] != null)
+    {
+        bool respostaCorreta = (bool)TempData["RespostaCorreta"];
+        if (respostaCorreta)
+        {
+            <div class="alert alert-success" role="alert">
+                Resposta correta!
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-danger" role="alert">
+                Resposta incorreta!
+            </div>
+        }
+    }
+
+}
+<h4 class="text-center text-primary">@casoClinico</h4>
+<hr />
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            @foreach (var viewModel in Model)
+            {
+
+                <h4>@viewModel.Questao.Enunciado</h4>
+
+                <form asp-action="SubmitQuizLista" method="post">
+                    <input type="hidden" name="QuestaoId" value="@viewModel.Questao.QuestaoId" />
+
+                    @for (int i = 0; i < viewModel.Alternativas.Count; i++)
+                    {
+                        <div class="form-check">
+                            <input type="radio" id="Alternativa@i" name="RespostaSelecionada"
+                                value="@viewModel.Alternativas[i].Texto" class="form-check-input" />
+                            <label for="Alternativa@i" class="form-check-label">@viewModel.Alternativas[i].Texto</label>
+                        </div>
+                    }
+
+                    <input type="submit" value="Submit" class="btn btn-primary mt-2" />
+                </form>
+
+            }
+        </div>
+    </div>
+</div>

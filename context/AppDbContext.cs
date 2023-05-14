@@ -1,8 +1,9 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using ProjetoParaProjetos.Models;
 
 namespace ProjetoParaProjetos.context
 {
@@ -29,6 +30,8 @@ namespace ProjetoParaProjetos.context
         public DbSet<ProjetoParaProjetos.Models.Questao> Questoes { get; set; }
 
         public DbSet<ProjetoParaProjetos.Models.Alternativa> Alternativas { get; set; }
+
+        public DbSet<ProjetoParaProjetos.Models.CasoClinico> CasosClinicos { get; set; }
 
         
         

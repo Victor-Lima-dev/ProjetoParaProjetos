@@ -1,0 +1,55 @@
+﻿@model ProjetoParaProjetos.Models.CasoClinico
+
+@{
+ ViewData["Title"] = "Edit";
+}
+
+<style>
+  .bg-primary {
+    background-color: #0099cc !important;
+  }
+
+  .btn-primary {
+    background-color: #66cc66 !important;
+    border-color: #66cc66 !important;
+  }
+
+  .text-primary {
+    color: #0099cc !important;
+  }
+</style>
+
+<h1 class="text-center text-primary">Edit</h1>
+
+<h4 class="text-center text-primary">CasoClinico</h4>
+<hr />
+<div class="container">
+ <div class="row justify-content-center">
+ <div class="col-md-6">
+ <form asp-action="Edit">
+ <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+ <input type="hidden" asp-for="CasoClinicoId" />
+ <div class="form-group">
+ <label asp-for="Caso" class="control-label"></label>
+ <input asp-for="Caso" class="form-control" />
+ <span asp-validation-for="Caso" class="text-danger"></span>
+ </div>
+ <div class="form-group">
+ <input type="submit" value="Save" class="btn btn-primary btn-block" />
+ </div>
+ </form>
+ </div>
+ </div>
+</div>
+
+<div class="container">
+ <div class="row justify-content-center">
+ <div class="col-md-6">
+ <a asp-action="Index" class="btn btn-primary btn-block mt-2">Back to List</a>
+ </div>
+ </div>
+</div>
+
+@section Scripts {
+ @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

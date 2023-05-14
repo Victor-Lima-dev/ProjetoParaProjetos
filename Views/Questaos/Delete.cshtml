@@ -1,0 +1,58 @@
+﻿@model ProjetoParaProjetos.Models.ViewModels.QuestaoAlternativaViewlModel
+
+<style>
+    .bg-primary {
+        background-color: #0099cc !important;
+    }
+
+    .btn-primary {
+        background-color: #66cc66 !important;
+        border-color: #66cc66 !important;
+    }
+
+    .text-primary {
+        color: #0099cc !important;
+    }
+
+    .btn-danger {
+        background-color: #cc0000 !important;
+        border-color: #cc0000 !important;
+    }
+</style>
+
+<h1 class="text-center text-primary">Delete</h1>
+
+<h4 class="text-center text-primary">Questao</h4>
+<hr />
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <dl class="row">
+                <dt class="col-sm-4 text-right">Enunciado</dt>
+                <dd class="col-sm-8">@Model.Questao.Enunciado</dd>
+
+                <dt class="col-sm-4 text-right">Resposta Correta</dt>
+                <dd class="col-sm-8">@Model.Questao.RespostaCorreta</dd>
+            </dl>
+
+            <h4 class="text-center text-primary">Alternativas</h4>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-4 text-right">Alternativa 1</dt>
+                <dd class="col-sm-8">@Model.Alternativa1.Texto</dd>
+
+                <dt class="col-sm-4 text-right">Alternativa 2</dt>
+                <dd class="col-sm-8">@Model.Alternativa2.Texto</dd>
+
+                <dt class="col-sm-4 text-right">Alternativa 3</dt>
+                <dd class="col-sm-8">@Model.Alternativa3.Texto</dd>
+            </dl>
+
+            <form asp-action="Delete" asp-route-id="@Model.Questao.QuestaoId" method="post"
+                onsubmit="return confirm('Are you sure you want to delete this question?');" class="text-center">
+                <input type="submit" value="Delete" class="btn btn-danger btn-block" />
+            </form>
+            <a asp-action="Index" class="btn btn-primary btn-block mt-2">Back to List</a>
+        </div>
+    </div>
+</div>

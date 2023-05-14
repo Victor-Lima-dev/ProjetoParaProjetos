@@ -1,0 +1,47 @@
+﻿@model ProjetoParaProjetos.Models.CasoClinico
+
+@{
+ ViewData["Title"] = "Details";
+}
+
+<style>
+  .bg-primary {
+    background-color: #0099cc !important;
+  }
+
+  .btn-primary {
+    background-color: #66cc66 !important;
+    border-color: #66cc66 !important;
+  }
+
+  .text-primary {
+    color: #0099cc !important;
+  }
+</style>
+
+<h1 class="text-center text-primary">Details</h1>
+
+<div class="container">
+ <div class="row justify-content-center">
+ <div class="col-md-6">
+ <h4 class="text-center text-primary">CasoClinico</h4>
+ <hr />
+ <dl class="row">
+ <dt class = "col-sm-4 text-right">
+ @Html.DisplayNameFor(model => model.Caso)
+ </dt>
+ <dd class = "col-sm-8">
+ @Html.DisplayFor(model => model.Caso)
+ </dd>
+ </dl>
+ </div>
+ </div>
+</div>
+<div class="container">
+ <div class="row justify-content-center">
+ <div class="col-md-6">
+ <a asp-action="Edit" asp-route-id="@Model?.CasoClinicoId" class="btn btn-primary btn-block">Edit</a> 
+ <a asp-action="Index" class="btn btn-primary btn-block mt-2">Back to List</a>
+ </div>
+ </div>
+</div>

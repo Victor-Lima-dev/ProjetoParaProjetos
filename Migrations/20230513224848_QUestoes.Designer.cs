@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjetoParaProjetos.context;
 
@@ -10,9 +11,11 @@ using ProjetoParaProjetos.context;
 namespace ProjetoParaProjetos.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230513224848_QUestoes")]
+    partial class QUestoes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,21 +40,6 @@ namespace ProjetoParaProjetos.Migrations
                     b.HasIndex("QuestaoId");
 
                     b.ToTable("Alternativas");
-                });
-
-            modelBuilder.Entity("ProjetoParaProjetos.Models.CasoClinico", b =>
-                {
-                    b.Property<int>("CasoClinicoId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Caso")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("CasoClinicoId");
-
-                    b.ToTable("CasosClinicos");
                 });
 
             modelBuilder.Entity("ProjetoParaProjetos.Models.FlashCard", b =>
@@ -220,9 +208,6 @@ namespace ProjetoParaProjetos.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("CasoClinicoId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Enunciado")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -232,8 +217,6 @@ namespace ProjetoParaProjetos.Migrations
                         .HasColumnType("longtext");
 
                     b.HasKey("QuestaoId");
-
-                    b.HasIndex("CasoClinicoId");
 
                     b.ToTable("Questoes");
                 });
@@ -375,17 +358,6 @@ namespace ProjetoParaProjetos.Migrations
                     b.Navigation("Objetivo");
                 });
 
-            modelBuilder.Entity("ProjetoParaProjetos.Models.Questao", b =>
-                {
-                    b.HasOne("ProjetoParaProjetos.Models.CasoClinico", "CasoClinico")
-                        .WithMany("Questoes")
-                        .HasForeignKey("CasoClinicoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CasoClinico");
-                });
-
             modelBuilder.Entity("ProjetoParaProjetos.Models.Referencia", b =>
                 {
                     b.HasOne("ProjetoParaProjetos.Models.FlashCard", "FlashCard")
@@ -395,11 +367,6 @@ namespace ProjetoParaProjetos.Migrations
                         .IsRequired();
 
                     b.Navigation("FlashCard");
-                });
-
-            modelBuilder.Entity("ProjetoParaProjetos.Models.CasoClinico", b =>
-                {
-                    b.Navigation("Questoes");
                 });
 
             modelBuilder.Entity("ProjetoParaProjetos.Models.Nota", b =>

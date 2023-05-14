@@ -1,0 +1,38 @@
+@model ProjetoParaProjetos.Models.ViewModels.QuizViewModel
+
+<h1>Quiz</h1>
+
+<h4>@Model.CasoClinico</h4>
+
+<h4>@Model.Questao.Enunciado</h4>
+
+<form asp-action="SubmitQuiz" method="post">
+    <input type="hidden" name="QuestaoId" value="@Model.Questao.QuestaoId" />
+
+    @for (int i = 0; i < Model.Alternativas.Count; i++)
+    {
+        <div>
+            <input type="radio" id="Alternativa@i" name="RespostaSelecionada" value="@Model.Alternativas[i].Texto" />
+            <label for="Alternativa@i">@Model.Alternativas[i].Texto</label>
+        </div>
+    }
+
+    <input type="submit" value="Submit" />
+</form>
+
+@if (TempData["RespostaCorreta"] != null)
+{
+    bool respostaCorreta = (bool)TempData["RespostaCorreta"];
+    if (respostaCorreta)
+    {
+        <div class="alert alert-success" role="alert">
+            Resposta correta!
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger" role="alert">
+            Resposta incorreta!
+        </div>
+    }
+}

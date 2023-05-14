@@ -1,0 +1,30 @@
+﻿@model ProjetoParaProjetos.Models.ViewModels.QuestaoAlternativaViewlModel
+
+
+<h1>Edit</h1>
+
+<h4>Questao</h4>
+<form asp-action="Edit" asp-route-id="@Model.Questao.QuestaoId" method="post">
+    <label for="Questao.Enunciado">Enunciado</label>
+    <input type="text" name="Questao.Enunciado" id="Enunciado" value="@Model.Questao.Enunciado" />
+
+    <label for="Questao.RespostaCorreta">Resposta Correta</label>
+    <input type="text" name="Questao.RespostaCorreta" id="RespostaCorreta" value="@Model.Questao.RespostaCorreta" />
+
+    <h4>Alternativa 1</h4>
+    <label for="Alternativa1.Texto">Texto</label>
+    <input type="text" name="Alternativa1.Texto" id="Alternativa1.Texto" value="@Model.Alternativa1.Texto" />
+
+    <h4>Alternativa 2</h4>
+    <label for="Alternativa2.Texto">Texto</label>
+    <input type="text" name="Alternativa2.Texto" id="Alternativa2.Texto" value="@Model.Alternativa2.Texto" />
+
+    <h4>Alternativa 3</h4>
+    <label for="Alternativa3.Texto">Texto</label>
+    <input type="text" name="Alternativa3.Texto" id="Alternativa3.Texto" value="@Model.Alternativa3.Texto" />
+    <input type="hidden" name="Alternativa3.AlternativaId" id="Alternativa3.AlternativaId" value="@Model.Alternativa3.AlternativaId" />
+    <input type="hidden" name="Alternativa2.AlternativaId" id="Alternativa2.AlternativaId" value="@Model.Alternativa2.AlternativaId" />
+    <input type="hidden" name="Alternativa1.AlternativaId" id="Alternativa1.AlternativaId" value="@Model.Alternativa1.AlternativaId" />
+    <input type="hidden" name="Questao.QuestaoId" id="Questao_QuestaoId" value="@Model.Questao.QuestaoId" />
+    <input type="submit" value="Save" />
+</form>
