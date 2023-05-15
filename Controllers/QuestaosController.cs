@@ -296,6 +296,18 @@ namespace ProjetoParaProjetos.Controllers
             // Obtenha as questões associadas ao caso clínico
             List<Questao> questoes = _context.Questoes.Where(q => q.CasoClinicoId == id).ToList();
 
+            if(questoes.Count == 0)
+            {
+
+                //tempdata
+                TempData["NaoPossuiQuestao"] = "Cadastre questoes para esse caso";
+
+
+               return RedirectToAction("Index", "casoclinicoes");
+            }
+
+
+
             // Crie uma lista de objetos QuizViewModel para cada questão
             List<QuizViewModel> quizViewModels = new List<QuizViewModel>();
             foreach (Questao questao in questoes)

@@ -18464,6 +18464,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\code\\ProjetoParaProjetos\\Views\\Questaos\\Home.cshtml",
+      "TargetPath": "Views\\Questaos\\Home.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\code\\ProjetoParaProjetos\\Views\\SeloAprendizadoes\\Home.cshtml",
       "TargetPath": "Views\\SeloAprendizadoes\\Home.cshtml",
       "FileKind": "mvc"

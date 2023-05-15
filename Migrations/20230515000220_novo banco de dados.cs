@@ -7,12 +7,27 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ProjetoParaProjetos.Migrations
 {
     /// <inheritdoc />
-    public partial class refserencissadfsdss : Migration
+    public partial class novobancodedados : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterDatabase()
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "CasosClinicos",
+                columns: table => new
+                {
+                    CasoClinicoId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Caso = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CasosClinicos", x => x.CasoClinicoId);
+                })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
@@ -79,6 +94,30 @@ namespace ProjetoParaProjetos.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "Questoes",
+                columns: table => new
+                {
+                    QuestaoId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Enunciado = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    RespostaCorreta = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    CasoClinicoId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Questoes", x => x.QuestaoId);
+                    table.ForeignKey(
+                        name: "FK_Questoes_CasosClinicos_CasoClinicoId",
+                        column: x => x.CasoClinicoId,
+                        principalTable: "CasosClinicos",
+                        principalColumn: "CasoClinicoId",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "Projetos",
                 columns: table => new
                 {
@@ -107,6 +146,28 @@ namespace ProjetoParaProjetos.Migrations
                         column: x => x.ObjetivosId,
                         principalTable: "Objetivos",
                         principalColumn: "ObjetivosId",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Alternativas",
+                columns: table => new
+                {
+                    AlternativaId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Texto = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    QuestaoId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Alternativas", x => x.AlternativaId);
+                    table.ForeignKey(
+                        name: "FK_Alternativas_Questoes_QuestaoId",
+                        column: x => x.QuestaoId,
+                        principalTable: "Questoes",
+                        principalColumn: "QuestaoId",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
@@ -213,6 +274,11 @@ namespace ProjetoParaProjetos.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Alternativas_QuestaoId",
+                table: "Alternativas",
+                column: "QuestaoId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_FlashCards_NotaId",
                 table: "FlashCards",
                 column: "NotaId");
@@ -243,6 +309,11 @@ namespace ProjetoParaProjetos.Migrations
                 column: "ObjetivosId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Questoes_CasoClinicoId",
+                table: "Questoes",
+                column: "CasoClinicoId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Referencias_FlashCardId",
                 table: "Referencias",
                 column: "FlashCardId");
@@ -251,6 +322,9 @@ namespace ProjetoParaProjetos.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Alternativas");
+
             migrationBuilder.DropTable(
                 name: "Referencias");
 
@@ -261,7 +335,13 @@ namespace ProjetoParaProjetos.Migrations
                 name: "Tarefas");
 
             migrationBuilder.DropTable(
+                name: "Questoes");
+
+            migrationBuilder.DropTable(
                 name: "FlashCards");
+
+            migrationBuilder.DropTable(
+                name: "CasosClinicos");
 
             migrationBuilder.DropTable(
                 name: "Notas");

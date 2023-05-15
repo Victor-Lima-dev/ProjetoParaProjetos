@@ -79,3 +79,9 @@ body {
 /* reset css */
 
 
+img
+{
+  max-width: 100px;
+  height: 50px;
+}
+

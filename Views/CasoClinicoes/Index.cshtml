@@ -25,7 +25,7 @@
         border-radius: 0.625rem;
         box-shadow: 0.125rem 0.125rem 0.3125rem rgba(0, 0, 0, 0.1);
 
-       
+
     }
 
     .card-body {
@@ -54,14 +54,69 @@
         text-decoration: underline;
     }
 
-  
+    .personalizada
+    {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+        font-size: 1.5rem;
+    }
+
+    .letra
+    {
+        font-size: 3rem;
+    }
+
+
+    .tamanho
+    {
+        width: 15rem;
+        padding: 1rem;
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+
+    ul li
+    {
+        font-size: 1.2rem;
+    }
+
 </style>
-
-<h1 class="text-center text-primary">Index</h1>
-
+<h1 class="text-center text-primary letra">Home</h1>
+<div class="personalizada">
 <p class="text-center">
-    <a asp-action="Create" class="btn btn-primary">Create New</a>
+
+    <a asp-action="Create" class="btn btn-primary tamanho">Criar Caso</a>
 </p>
+
+
+ <p class="text-center">
+        <a asp-controller="Questaos" asp-action="Create" class="btn btn-primary tamanho">Cadastrar Questoes</a>
+    </p>
+    <p class="text-center">
+        <a asp-controller="Questaos" asp-action="Index" class="btn btn-primary tamanho">Central de Questoes</a>
+    </p>
+
+</div>
+
+@{
+    if (TempData["NaoPossuiQuestao"] != null)
+    {
+        <div class="alert alert-danger text-center" role="alert">
+            <p class="text-center">Esse caso nao possui nenhuma questao cadastrada </p>
+        </div>
+    }
+
+}
+    
+<div class=“container letra”> <div class=“row justify-content-center”> <div class=“col-md-10”> <!-- Adicionando as informações antes dos cards --> <ul class=“list-group list-group-flush”> <li class=“list-group-item”>Esta página é uma interface para cadastrar casos clínicos e questões relacionadas a eles.</li> <li class=“list-group-item”>Para cadastrar um novo caso clínico, clique no botão “Cadastrar Caso” no topo da página. Você será redirecionado para um formulário onde poderá inserir os dados do caso, como título, descrição, imagem e categoria.</li> <li class=“list-group-item”>Para cadastrar uma nova questão sobre um caso clínico, clique no botão “Cadastrar Questões” no topo da página. Você será redirecionado para um formulário onde poderá inserir os dados da questão, como enunciado, alternativas, resposta correta e feedback.</li> <li class=“list-group-item”>Para visualizar todas as questões cadastradas, clique no botão “Central de Questões” no topo da página. Você verá uma lista de questões com seus respectivos casos clínicos e poderá filtrar por categoria ou palavra-chave.</li> <li class=“list-group-item”>Para editar ou excluir um caso clínico ou uma questão, clique nos links “Edit” ou “Delete” abaixo de cada card. Você será redirecionado para uma página onde poderá alterar ou remover os dados.</li> <li class=“list-group-item”>Para ver as questões de um caso clínico específico, clique no link “Questões” abaixo do card do caso. Você verá uma lista de questões relacionadas ao caso e poderá responder a elas clicando em “Iniciar Quiz”.</li> </ul> <!-- Fim da adição --> 
+
+
+
+
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-10">
@@ -73,7 +128,6 @@
                             <h5 class="card-title"></h5>
                             <p class="card-text">@Html.DisplayFor(modelItem => item.Caso)</p>
                             <a asp-action="Edit" asp-route-id="@item.CasoClinicoId" class="card-link">Edit</a>
-                            <a asp-action="Details" asp-route-id="@item.CasoClinicoId" class="card-link">Details</a>
                             <a asp-action="Delete" asp-route-id="@item.CasoClinicoId" class="card-link">Delete</a>
                             <a asp-controller="Questaos" asp-action="QuizLista" asp-route-id="@item.CasoClinicoId"
                                 class="card-link">Questoes</a>

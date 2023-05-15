@@ -20,6 +20,8 @@ namespace ProjetoParaProjetos.Controllers
         }
 
         // GET: CasoClinicoes
+
+     
         public async Task<IActionResult> Index()
         {
               return _context.CasosClinicos != null ? 

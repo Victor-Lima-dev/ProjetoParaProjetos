@@ -11,8 +11,8 @@ using ProjetoParaProjetos.context;
 namespace ProjetoParaProjetos.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230514014519_casos clinicos")]
-    partial class casosclinicos
+    [Migration("20230515000220_novo banco de dados")]
+    partial class novobancodedados
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
